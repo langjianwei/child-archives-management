@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljw.management.mapper.AdminMapper">
+    <insert id="addChild" parameterType="com.ljw.management.entity.Child">
+        insert into
+          child (classes, name, sex, age, birthday, id_card, registered_residence, height, weight, nation, address, phone, admission, only_one_child, remarks, add_time, update_time)
+        values (#{classes}, #{name}, #{sex}, #{age}, #{birthday}, #{idCard}, #{registeredResidence}, #{height}, #{weight}, #{nation}, #{address}, #{phone}, #{admission}, #{onlyOneChild}, #{remarks}, now(), now())
+
+    </insert>
+    <update id="updateChild" parameterType="com.ljw.management.entity.Child">
+        update
+          child
+        set
+          classes = #{classes},
+          name = #{name},
+          sex = #{sex},
+          age = #{age},
+          birthday = #{birthday},
+          address = #{address},
+          admission = #{admission},
+          id_card = #{idCard},
+          registered_residence = #{registeredResidence},
+          nation = #{nation},
+          height = #{height},
+          weight = #{weight},
+          phone = #{phone},
+          only_one_child = #{onlyOneChild},
+          remarks = #{remarks},
+          update_time = now()
+        where
+          id = #{id}
+    </update>
+    <delete id="deleteChild" parameterType="integer">
+        delete from child where id = #{childId}
+    </delete>
+
+    <select id="getChildList" parameterType="com.ljw.management.entity.Child" resultType="com.ljw.management.entity.Child">
+      select
+        *
+      from
+        child
+      where 1=1
+      <if test="classes != null">
+          and classes = #{classes}
+      </if>
+      <if test="name != null">
+          and name = #{name}
+      </if>
+      <if test="age != null">
+          and age = #{age}
+      </if>
+      <if test="birthday != null">
+          and birthday = #{birthday}
+      </if>
+    </select>
+
+    <select id="getClassesList" resultType="com.ljw.management.entity.Classes">
+        select * from classes
+    </select>
+</mapper>

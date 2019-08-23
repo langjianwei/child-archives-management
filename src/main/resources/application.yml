@@ -1,0 +1,60 @@
+server:
+  port: 8080
+
+### 邮箱信息相关配置
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://123.207.173.185:5432/child-archives-management?useSSL=false
+    username: postgres
+    password: ljwpostgres org.postgresql.Driver
+  mail:
+    username: 17600604700@163.com
+    password: ljw00000000
+    host: smtp.163.com
+  application:
+    name: Alert
+  boot:
+    admin:
+      client:
+        url: http://123.207.173.185:8888
+
+  thymeleaf:
+    cache: false
+  mvc:
+    static-path-pattern: "/**"
+
+mybatis:
+  type-aliases-package: com.ljw.management.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    call-setters-on-nulls: true
+    map-underscore-to-camel-case: true
+
+
+### 邮件收件人相关配置，支持多收件人
+mail:
+  mailTo:
+    jianwei.lang@eucita.cn
+
+
+### 是否开启debug
+#debug: true
+
+### 日志相关配置
+logging:
+  file: log.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{64} - %msg%n"
+  level:
+    com.ljw.management.mapper: DEBUG
+
+### 应用监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

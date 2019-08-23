@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+  <meta name="author" content="Creative Tim">
+  <title>陵川希望礼仪幼儿园---幼儿档案管理系统</title>
+  <!-- Favicon -->
+  <link th:href="@{/img/brand/favicon.png}" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link th:href="@{/vendor/nucleo/css/nucleo.css}" rel="stylesheet}">
+  <link th:href="@{/vendor/@fortawesome/fontawesome-free/css/all.min.css}" rel="stylesheet">
+  <!-- Argon CSS -->
+  <link type="text/css" th:href="@{/css/argon.css?v=1.0.0}" rel="stylesheet">
+  <style>
+    .squares{
+      animation: move-left-right 1s infinite;
+      background: #ba54f5;
+      background: linear-gradient(0deg,#ba54f5,#e14eca);
+      position: absolute;
+      transition: .5s ease-out;
+      overflow: hidden;
+      border-radius: 20%;
+      z-index: 99;
+    }
+    .square1{
+      animation: move-left-right 4s infinite;
+      height: 150px;
+      width: 150px;
+      opacity: .5;
+      left: 5%;
+      top: 10%;
+    }
+    .square2{
+      animation: move-left-right 6s infinite;
+      height: 200px;
+      width: 200px;
+      opacity: .4;
+      right: 5%;
+      top: 15%;
+    }
+    .squares.square3 {
+      animation: move-left-right 5s infinite;
+      height: 200px;
+      width: 200px;
+      opacity: .1;
+      left: -5%;
+      bottom: 0;
+    }
+    .squares.square4 {
+      animation: move-left-right 3s infinite;
+      height: 100px;
+      width: 100px;
+      opacity: .9;
+      right: 20%;
+      top: 70%;
+    }
+    .squares.square5 {
+      animation: move-left-right 6s infinite;
+      height: 250px;
+      width: 250px;
+      opacity: .1;
+      left: 32%;
+      bottom: 29%;
+    }
+    .squares.square6 {
+      animation: move-left-right 9s infinite;
+      left: 15%;
+      top: 40%;
+      height: 80px;
+      width: 80px;
+      opacity: .8;
+    }
+    .squares.square7 {
+      animation: move-left-right 5s infinite;
+      width: 300px;
+      height: 300px;
+      right: 5%;
+      bottom: 0;
+      opacity: .1;
+    }
+    @keyframes move-left-right {
+      0% {
+        transform: translateX(-10px);
+      }
+      50% {
+        transform: translateX(10px);
+      }
+      100% {
+        transform: translateX(-10px);
+      }
+    }
+    /*.bg-gradient-primary*/
+    /*{*/
+      /*background: linear-gradient(87deg, #171941 0, #171941 100%) !important;*/
+    /*}*/
+    /*.bg-default {*/
+      /*!*background-color: #825ee4 !important;*!*/
+      /*background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;*/
+    /*}*/
+  </style>
+</head>
+
+<body class="bg-default">
+<div class="page-header header-filter">
+  <div class="squares square1"></div>
+  <div class="squares square2"></div>
+  <div class="squares square3"></div>
+  <div class="squares square6"></div>
+  <div class="squares square7"></div>
+  <div class="container">
+    <div class="content-center brand">
+    </div>
+  </div>
+</div>
+<div class="main-content">
+  <!-- Navbar -->
+  <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
+    <div class="container px-4">
+      <a class="navbar-brand" href="../index.html">
+        <img th:src="@{/img/brand/white.png}" />
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar-collapse-main">
+        <!-- Collapse header -->
+        <div class="navbar-collapse-header d-md-none">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a href="../index.html">
+                <img th:src="@{/img/brand/blue.png}">
+              </a>
+            </div>
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Navbar items -->
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link nav-link-icon" href="/alert/admin/index">
+              <i class="ni ni-planet"></i>
+              <span class="nav-link-inner--text">Profile</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-icon" href="/alert/admin/priceOverproof">
+              <i class="ni ni-circle-08"></i>
+              <span class="nav-link-inner--text">PriceOverProof</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-icon" href="/alert/admin/mailConfig">
+              <i class="ni ni-key-25"></i>
+              <span class="nav-link-inner--text">MailConfig</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Header -->
+  <div class="header bg-gradient-primary py-7 py-lg-8">
+    <div class="container">
+      <div class="header-body text-center mb-7">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 col-md-6">
+            <h1 class="text-white">欢迎使用!</h1>
+            <h3 class="text-white" style="margin-top: 20px">
+              北京齐家·6+1陵川希望礼仪幼儿园.
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container mt--8 pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7">
+        <div class="card bg-secondary shadow border-0" style=" margin-top: -50px;">
+          <div class="card-body px-lg-5 py-lg-5" style="z-index: 99;">
+            <form role="form" id="loginForm" style="margin-top: 20px">
+              <!--弹出框-->
+              <div class="alert alert-danger" id="alert" style="width: 250px; margin:30px auto;/*left:42%;*/display: none;z-index: 9999">
+              </div>
+              <div class="form-group mb-3">
+                  <h3 class="text-black" style="margin-top: -30px;text-align: center">
+                    幼儿档案管理系统
+                  </h3>
+              </div>
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                  </div>
+                  <input class="form-control" placeholder="用户名" type="text" id="username">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                  </div>
+                  <input class="form-control" placeholder="密码" type="password" id="password">
+                </div>
+              </div>
+              <div class="custom-control custom-control-alternative custom-checkbox">
+                <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                <label class="custom-control-label" for=" customCheckLogin">
+                  <span class="text-muted">记住我</span>
+                </label>
+              </div>
+              <div class="text-center">
+                <button type="button" class="btn btn-primary my-4" id="login">登录</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-6">
+            <a href="#" class="text-light"><small>忘记密码?</small></a>
+          </div>
+          <div class="col-6 text-right">
+            <a href="#" class="text-light"><small>注册账号</small></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="fdb-block footer-large fp-active" data-block-type="footers" data-id="1" style="margin-top: 30px">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col fr-box fr-inline" role="application" >
+        <div class="fr-wrapper" dir="auto">
+          <div class="fr-element fr-view">
+            <h1 style="text-align: left; color: #fff">​感谢你的支持！<strong>​</strong>​<em>​</em>​​​​​​​</h1>
+            <h2 style="text-align: left; color: #fff">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 希望您为我们提出更宝贵的建议。</h2>
+            <h4 style="text-align: right; color: #fff" >​致力于更好的幼儿教育...</h4>
+            <h3><a href="http://www.eucita.com/index.html" style="color: #fff" th:text="'@' + ${#dates.format(new java.util.Date().getTime(), 'yyyy')} + ' 陵川希望礼仪幼儿园 by langjianwei. All Rights Reserved'">@ 2019 陵川希望礼仪幼儿园 by langjianwei. All Rights Reserved</a></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Argon Scripts -->
+<!-- Core -->
+<script th:src="@{/vendor/jquery/dist/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<!-- Argon JS -->
+<script th:src="@{/js/argon.js?v=1.0.0}"></script>
+<script type="text/javascript">
+  $(function(){
+    $('button').on('click',function () {
+      console.log('被点击了');
+      var username = $('#username').val();
+      var password= $('#password').val();
+      if (username == '' || username == null) {
+        $('#alert').html('警告，【用户名】不能为空！');
+        $('#alert').show();
+        return false;
+      } else if (password == '' || password == null) {
+        $('#alert').html('警告，【密码】不能为空！');
+        $('#alert').show();
+        return false;
+      } else {
+        $('#alert').hide();
+      }
+      $.post(
+              "/admin/loginValid",
+              {
+                username:username,
+                password:password
+              },
+              function(data){
+                if(data.statusCode == 200){
+                  window.location.href="/admin/index";
+                }else{
+                  $('#alert').html('警告，登录失败，【'+ data.data +'】！');
+                  $('#alert').show();
+                }
+              });
+    })
+    // 点击alert退出
+    $('#alert').click(function () {
+      $("#alert").hide()
+    })
+  })
+</script>
+</body>
+
+</html>

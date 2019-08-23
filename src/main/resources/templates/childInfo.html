@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+  <meta name="author" content="Creative Tim">
+  <title>陵川希望礼仪幼儿园---幼儿档案管理系统</title>
+  <!-- Favicon -->
+  <link th:href="@{/img/brand/favicon.png}" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link th:href="@{/vendor/nucleo/css/nucleo.css}" rel="stylesheet">
+  <link th:href="@{/vendor/@fortawesome/fontawesome-free/css/all.min.css}" rel="stylesheet">
+  <!-- Argon CSS -->
+  <link type="text/css" th:href="@{/css/argon.css?v=1.0.0}" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Sidenav -->
+  <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+    <div class="container-fluid">
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Brand -->
+      <a class="navbar-brand pt-0" href="../index.html">
+        <img th:src="@{/img/brand/blue.png}" class="navbar-brand-img" alt="...">
+      </a>
+      <!--手机端header-->
+      <div th:replace="headerByMobilePhone::headerByMobilePhone"></div>
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+        <!-- Collapse header -->
+        <div class="navbar-collapse-header d-md-none">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a href="../index.html">
+                <img th:src="@{/img/brand/blue.png}">
+              </a>
+            </div>
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Form -->
+        <form class="mt-4 mb-3 d-md-none">
+          <div class="input-child input-child-rounded input-child-merge">
+            <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search">
+            <div class="input-child-prepend">
+              <div class="input-child-text">
+                <span class="fa fa-search"></span>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- Navigation -->
+        <div th:replace="navbar::navbar"></div>
+      </div>
+    </div>
+  </nav>
+  <!-- Main content -->
+  <div class="main-content">
+    <!-- Top navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="">幼儿档案</a>
+        <!--header-->
+        <div th:replace="header::header"></div>
+      </div>
+    </nav>
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body">
+          <!-- Card stats -->
+
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <span class="mb-0">幼儿信息查看</span>
+              <button class="btn btn-sm btn-success" style="position: absolute; right: 20px" data-toggle="modal" data-target="#add-modal-form" id="addButton">添加</button>
+
+              <!--添加功能的modal开始-->
+              <div class="modal fade" id="add-modal-form" tabindex="-1" role="dialog" aria-labelledby="add-modal-form" aria-hidden="true">
+                <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+                  <div class="modal-content">
+                    <div class="modal-body p-0" style="width: 700px">
+                      <div class="card bg-secondary shadow border-0">
+                        <div class="card-body px-lg-5 py-lg-5">
+                          <div class="text-center text-muted mb-4">
+                            <label>请根据提示【添加】幼儿档案信息</label>
+                          </div>
+                          <form role="form" id="addForm" style="margin-top: 20px">
+                            <!--警告弹出框-->
+                            <div class="alert alert-danger" id="alert" style="width: 600px; margin:30px auto;display: none;z-index: 9999">
+                            </div>
+                            <!--成功弹出框-->
+                            <div class="alert alert-success" id="success" style="width: 250px; margin:30px auto;display: none;z-index: 9999">
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>班级：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <select class="form-control" v-model="classes" name="classes" id="classes" style="height:45px; border:none">
+                                      <option value="请选择班级" style="padding: 0 20px">下拉选择班级</option>
+                                      <option th:each="classes:${classesList}" th:value="${classes.name}" th:text="${classes.name}" style="padding: 0 20px"></option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>姓名：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写姓名" type="text" id="name">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>性别：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <select class="form-control" v-model="sex" name="sex" id="sex" style="height:45px; border:none">
+                                      <option value="请选择性别" style="padding: 0 20px">下拉选择性别</option>
+                                      <option value="男" style="padding: 0 20px">男</option>
+                                      <option value="女" style="padding: 0 20px">女</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>年龄：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写年龄" type="number" id="age">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>出生日期：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control datepicker" placeholder="请填写出生日期" type="text" id="birthday">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>家庭现详细住址：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写家庭住址（具体到门牌号）" type="text" id="address">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>入园时间：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control datepicker" placeholder="请填写入园时间" type="text" id="admission">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>身份证号：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写身份证号" type="text" id="idCard">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>户口所在地：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写户口所在地" type="text" id="registeredResidence">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>民族：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写民族" type="text" id="nation">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>身高：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写身高（单位cm）" type="text" id="height">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>体重：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写体重（单位kg）" type="text" id="weight">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>亲属联系电话：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写联系电话" type="text" id="phone">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <div class="input-child input-child-alternative">
+                                    <label>是否独生子女：</label>
+                                    <select class="form-control" v-model="sex" name="sex" id="onlyOneChild" style="height:45px; border:none">
+                                      <option value="请选择是否独生子女" style="padding: 0 20px">选择是否独生子女</option>
+                                      <option value="是" style="padding: 0 20px">是</option>
+                                      <option value="否" style="padding: 0 20px">否</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <div class="input-child input-child-alternative">
+                                    <label>备注：</label>
+                                    <textarea class="form-control" placeholder="（选填，父母及监护人等相关信息）" rows="3" id="remarks"></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="text-center">
+                              <button type="button" class="btn btn-success my-4" id="submitButton">提交</button>
+                              <button type="button" class="btn btn-primary my-4" data-dismiss="modal" id="closeButton">关闭</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--添加功能的modal结束-->
+              <!--修改功能的modal开始-->
+              <div class="modal fade" id="update-modal-form" tabindex="-1" role="dialog" aria-labelledby="update-modal-form" aria-hidden="true">
+                <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+                  <div class="modal-content">
+                    <div class="modal-body p-0" style="width: 700px">
+                      <div class="card bg-secondary shadow border-0">
+                        <div class="card-body px-lg-5 py-lg-5">
+                          <div class="text-center text-muted mb-4">
+                            <label>请根据提示【修改】幼儿档案信息</label>
+                          </div>
+                          <form role="form" id="updateForm" style="margin-top: 20px">
+                            <!--警告弹出框-->
+                            <div class="alert alert-danger" id="alertUpdate" style="width: 600px; margin:30px auto;display: none;z-index: 9999">
+                            </div>
+                            <!--成功弹出框-->
+                            <div class="alert alert-success" id="successUpdate" style="width: 250px; margin:30px auto;display: none;z-index: 9999">
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6" style="display: none">
+                                <div class="form-group">
+                                  <label>id：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="id(用于修改删除)" type="text" id="idUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>班级：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <select class="form-control" v-model="classes" name="classes" id="classesUpdate" style="height:45px; border:none">
+                                      <option value="请选择班级" style="padding: 0 20px">下拉选择班级</option>
+                                      <option th:each="classes:${classesList}" th:value="${classes.name}" th:text="${classes.name}" style="padding: 0 20px"></option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>姓名：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写姓名" type="text" id="nameUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>性别：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <select class="form-control" v-model="sex" name="sex" id="sexUpdate" style="height:45px; border:none">
+                                      <option value="请选择性别" style="padding: 0 20px">下拉选择性别</option>
+                                      <option value="男" style="padding: 0 20px">男</option>
+                                      <option value="女" style="padding: 0 20px">女</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>年龄：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写年龄" type="number" id="ageUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>出生日期：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写出生日期(格式：2019-08-21)" type="text" id="birthdayUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>家庭现详细住址：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写家庭住址（具体到门牌号）" type="text" id="addressUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>入园时间：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写入园时间(格式：2019-08-21)" type="text" id="admissionUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>身份证号：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写身份证号" type="text" id="idCardUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>户口所在地：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写户口所在地" type="text" id="registeredResidenceUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>民族：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写民族" type="text" id="nationUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>身高：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写身高（单位cm）" type="text" id="heightUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>体重：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写体重（单位kg）" type="text" id="weightUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>亲属联系电话：</label>
+                                  <div class="input-child input-child-alternative">
+                                    <input class="form-control" placeholder="请填写联系电话" type="text" id="phoneUpdate">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <div class="input-child input-child-alternative">
+                                    <label>是否独生子女：</label>
+                                    <select class="form-control" v-model="sex" name="sex" id="onlyOneChildUpdate" style="height:45px; border:none">
+                                      <option value="请选择是否独生子女" style="padding: 0 20px">选择是否独生子女</option>
+                                      <option value="是" style="padding: 0 20px">是</option>
+                                      <option value="否" style="padding: 0 20px">否</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <div class="input-child input-child-alternative">
+                                    <label>备注：</label>
+                                    <textarea class="form-control" placeholder="（选填，父母及监护人等相关信息）" rows="3" id="remarksUpdate"></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="text-center">
+                              <button type="button" class="btn btn-success my-4" id="submitButtonUpdate">提交</button>
+                              <button type="button" class="btn btn-primary my-4" data-dismiss="modal" id="closeButtonUpdate">关闭</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--修改功能的modal结束-->
+              <!--删除功能的modal开始-->
+              <div class="modal fade" id="delete-modal-form" tabindex="-1" role="dialog" aria-labelledby="update-modal-form" aria-hidden="true">
+                <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+                  <div class="modal-content">
+                    <div class="modal-body p-0">
+                      <div class="card bg-secondary shadow border-0">
+                        <div class="card-body px-lg-5 py-lg-5">
+                          <div class="text-center text-muted mb-4">
+                            <label>确定【删除】该幼儿档案信息吗？</label>
+                          </div>
+                          <form role="form" id="deleteForm" style="margin-top: 20px">
+                            <!--警告弹出框-->
+                            <div class="alert alert-danger" id="alertDelete" style="width: 250px; margin:30px auto;display: none;z-index: 9999">
+                            </div>
+                            <!--成功弹出框-->
+                            <div class="alert alert-success" id="successDelete" style="width: 250px; margin:30px auto;display: none;z-index: 9999">
+                            </div>
+                            <div class="form-child mb-3" style="display: none">
+                              <label>ID：</label>
+                              <div class="input-child input-child-alternative">
+                                <input class="form-control" type="text" id="childIdDelete">
+                              </div>
+                            </div>
+                            <div class="form-child mb-3">
+                              <label>班级：</label>
+                              <div class="input-child input-child-alternative">
+                                <input class="form-control" type="text" id="classesDelete">
+                              </div>
+                            </div>
+                            <div class="form-child mb-3">
+                              <label>姓名：</label>
+                              <div class="input-child input-child-alternative">
+                                <input class="form-control" type="text" id="nameDelete">
+                              </div>
+                            </div>
+                            <div class="text-center">
+                              <button type="button" class="btn btn-success my-4" id="submitButtonDelete">确定</button>
+                              <button type="button" class="btn btn-primary my-4" data-dismiss="modal" id="closeButtonDelete">关闭</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--删除功能的modal结束-->
+            </div>
+            <div class="table-responsive py-4">
+              <table class="table align-items-center table-flush text-center" id="childList">
+              <!--<table class="table table-flush" id="datatable-buttons">-->
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col" style="display: none;">id</th>
+                  <th scope="col">班级</th>
+                  <th scope="col">姓名</th>
+                  <th scope="col">性别</th>
+                  <th scope="col">年龄</th>
+                  <th scope="col">出生年月</th>
+                  <th scope="col">身份证号</th>
+                  <th scope="col">家庭现详细住址</th>
+                  <th scope="col" style="display: none">电话</th>
+                  <th scope="col">入园时间</th>
+                  <th scope="col">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="child:${childInfoList}">
+                  <th scope="row" style="display: none">
+                    <div>
+                      <div>
+                        <span th:text="${child.id}" id="id"></span>
+                      </div>
+                    </div>
+                  </th>
+
+                  <td>
+                      <div>
+                        <span th:text="${child.classes}"></span>
+                      </div>
+                  </td>
+                  <td>
+                      <div>
+                        <span th:text="${child.name}"></span>
+                      </div>
+                  </td>
+                  <td>
+                      <div>
+                        <span th:text="${child.sex}"></span>
+                      </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span th:text="${child.age}"></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span th:text="${child.birthday}"></span>
+                    </div>
+                  </td>
+                  <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" data-toggle="tooltip" data-placement="right" th:attr="title=${child.idCard}">
+                    <div>
+                      <span th:text="${child.idCard}"></span>
+                    </div>
+                  </td>
+                  <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" data-toggle="tooltip" data-placement="right" th:attr="title=${child.address}">
+                    <div>
+                      <span th:text="${child.address}"></span>
+                    </div>
+                  </td>
+                  <td style="display: none">
+                    <div>
+                      <span th:text="${child.phone}"></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span th:text="${child.admission}"></span>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#update-modal-form" id="updateButton" th:attr="
+                    data-id=${child.id},
+                    data-classes=${child.classes},
+                    data-name=${child.name},
+                    data-sex=${child.sex},
+                    data-age=${child.age},
+                    data-birthday=${child.birthday},
+                    data-address=${child.address},
+                    data-admission=${child.admission},
+                    data-id_card=${child.idCard},
+                    data-registered_residence=${child.registeredResidence},
+                    data-nation=${child.nation},
+                    data-height=${child.height},
+                    data-weight=${child.weight},
+                    data-phone=${child.phone},
+                    data-only_one_child=${child.onlyOneChild},
+                    data-remarks=${child.remarks}">查看/修改</button>
+                    <button class="btn btn-sm btn-danger"  data-toggle="modal" data-target="#delete-modal-form" id="deleteButton" th:attr="
+                    data-id=${child.id},
+                    data-classes=${child.classes},
+                    data-name=${child.name}">删除</button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--<div class="card-footer py-4">-->
+              <!--<nav aria-label="...">-->
+                <!--<ul class="pagination justify-content-end mb-0">-->
+                  <!--<li class="page-item disabled">-->
+                    <!--<a class="page-link" href="#" tabindex="-1">-->
+                      <!--<i class="fas fa-angle-left"></i>-->
+                      <!--<span class="sr-only">Previous</span>-->
+                    <!--</a>-->
+                  <!--</li>-->
+                  <!--<li class="page-item active">-->
+                    <!--<a class="page-link" href="#">1</a>-->
+                  <!--</li>-->
+                  <!--<li class="page-item">-->
+                    <!--<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>-->
+                  <!--</li>-->
+                  <!--<li class="page-item">-->
+                    <!--<a class="page-link" href="#">3</a>-->
+                  <!--</li>-->
+                  <!--<li class="page-item">-->
+                    <!--<a class="page-link" href="#">-->
+                      <!--<i class="fas fa-angle-right"></i>-->
+                      <!--<span class="sr-only">Next</span>-->
+                    <!--</a>-->
+                  <!--</li>-->
+                <!--</ul>-->
+              <!--</nav>-->
+            <!--</div>-->
+          </div>
+        </div>
+      </div>
+      <!--footer-->
+      <div th:replace="footer::footer"></div>
+    </div>
+  </div>
+  <!-- Argon Scripts -->
+  <!-- Core -->
+  <script th:src="@{/vendor/jquery/dist/jquery.min.js}"></script>
+  <script th:src="@{/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js}"></script>
+  <!-- Optional JS -->
+  <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3PjUqq81lIOfBPYXrQGWwK5T4ystZjA"></script>-->
+  <!-- Argon JS -->
+  <script th:src="@{/js/argon.js?v=1.0.0}"></script>
+  <!-- dataTable -->
+  <!--<link type="text/css" th:href="@{/css/jquery.dataTables.css}" rel="stylesheet">-->
+  <!--<link type="text/css" th:href="@{/css/buttons.bootstrap4.min.css}" rel="stylesheet">-->
+  <!--<link type="text/css" th:href="@{/css/select.bootstrap4.min.css}" rel="stylesheet">-->
+  <!--<script th:src="@{/js/jquery.js}"></script>-->
+  <!--<script th:src="@{/js/jquery.dataTables.js}"></script>-->
+  <link type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}" rel="stylesheet">
+  <link type="text/css" th:href="@{/css/buttons.bootstrap4.min.css}" rel="stylesheet">
+  <link type="text/css" th:href="@{/css/select.bootstrap4.min.css}" rel="stylesheet">
+  <script th:src="@{/js/jquery.dataTables.min.js}"></script>
+  <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+  <script th:src="@{/js/dataTables.buttons.min.js}"></script>
+  <script th:src="@{/js/buttons.bootstrap4.min.js}"></script>
+  <script th:src="@{/js/buttons.html5.min.js}"></script>
+  <script th:src="@{/js/buttons.flash.min.js}"></script>
+  <script th:src="@{/js/buttons.print.min.js}"></script>
+  <script th:src="@{/js/dataTables.select.min.js}"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#childList").dataTable({
+        "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
+        "aLengthMenu" : [5, 10], //更改显示记录数选项
+        "sPaginationType" : "full_numbers", //详细分页组，可以支持直接跳转到某页
+        "bAutoWidth" : true, //是否自适应宽度
+        // "bJQueryUI" : true,
+        "oLanguage": { //国际化配置
+          "sProcessing" : "正在获取数据，请稍后...",
+          "sLengthMenu" : "显示 _MENU_ 条",
+          "sZeroRecords" : "没有您要搜索的内容",
+          "sInfo" : "从 _START_ 到  _END_ 条记录 总记录数为 _TOTAL_ 条",
+          "sInfoEmpty" : "记录数为0",
+          "sInfoFiltered" : "(全部记录数 _MAX_ 条)",
+          "sInfoPostFix" : "",
+          "sSearch" : "搜索",
+          "sUrl" : "",
+          "oPaginate": {
+            "sFirst" : "<<",
+            "sPrevious" : "<",
+            "sNext" : ">",
+            "sLast" : ">>"
+          }
+        },
+      });
+    });
+
+    $(function(){
+      // 退出登录
+      $(function(){
+        $('#logOut').on('click',function () {
+          console.log('退出登录被点击了');
+          $.post(
+                  "/admin/logOut",
+                  function(data){
+                    console.log(data)
+                    if(data.statusCode == 200){
+                      window.location.href="/admin/login";
+                    }
+                  });
+        })
+      });
+      // 添加提交表单
+      $('#submitButton').on('click',function () {
+        var classes = $('#classes').val();
+        var name = $('#name').val();
+        var sex= $('#sex').val();
+        var age= $('#age').val();
+        var birthday= $('#birthday').val();
+        var address= $('#address').val();
+        var admission= $('#admission').val();
+        var idCard= $('#idCard').val();
+        var registeredResidence= $('#registeredResidence').val();
+        var nation= $('#nation').val();
+        var height= $('#height').val();
+        var weight= $('#weight').val();
+        var phone= $('#phone').val();
+        var onlyOneChild= $('#onlyOneChild').val();
+        var remarks= $('#remarks').val();
+        if (classes == '' || classes == null || classes == '请选择班级') {
+          $('#alert').html('警告，【班级】不能为空！');
+          $('#alert').show();
+          return false;
+        } else if (name == '' || name == null) {
+          $('#alert').html('警告，【姓名】不能为空！');
+          $('#alert').show();
+          return false;
+        }else if (sex == '' || sex == null) {
+          $('#alert').html('警告，【性别】不能为空！');
+          $('#alert').show();
+          return false;
+        }else if (age == '' || age == null) {
+          $('#alert').html('警告，【年龄】不能为空！');
+          $('#alert').show();
+          return false;
+        }else if (birthday == '' || birthday == null) {
+          $('#alert').html('警告，【出生日期】不能为空！');
+          $('#alert').show();
+          return false;
+        }else if (address == '' || address == null) {
+          $('#alert').html('警告，【家庭现详细住址】不能为空！');
+          $('#alert').show();
+          return false;
+        } else if (idCard == '' || idCard == null) {
+          $('#alert').html('警告，【身份证号】不能为空！');
+          $('#alert').show();
+          return false;
+        } else if (phone == '' || phone == null) {
+          $('#alert').html('警告，【亲属联系电话】不能为空！');
+          $('#alert').show();
+          return false;
+        } else {
+          $('#alert').hide();
+        }
+        $.post(
+                "/admin/addChildInfo",
+                {
+                  classes:classes,
+                  name:name,
+                  sex:sex,
+                  age:age,
+                  birthday:birthday,
+                  address:address,
+                  admission:admission,
+                  idCard:idCard,
+                  registeredResidence:registeredResidence,
+                  nation:nation,
+                  height:height,
+                  weight:weight,
+                  phone:phone,
+                  onlyOneChild:onlyOneChild,
+                  remarks:remarks,
+                  type: 'add'
+                },
+                function(data){
+                  console.log("成功返回了"+ JSON.stringify(data))
+                  if(data.statusCode == 200){
+                    $('#success').html('成功，添加成功，【'+ data.data +'】！');
+                    $('#success').show();
+                    setTimeout(function () { $("#add-modal-form").modal("hide") }, 2000);
+                    window.location.href="/admin/childInfo";
+                  }else{
+                    $('#alert').html('警告，添加失败，【'+ data.data +'】！');
+                    $('#alert').show();
+                  }
+                });
+      });
+
+      // 展示修改的modal并且赋值
+      $('#update-modal-form').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var modal = $(this)
+        modal.find('#idUpdate').val(button.data('id'))
+        modal.find('#classesUpdate').val(button.data('classes'))
+        modal.find('#nameUpdate').val(button.data('name'))
+        modal.find('#sexUpdate').val(button.data('sex'))
+        modal.find('#ageUpdate').val(button.data('age'))
+        modal.find('#birthdayUpdate').val(button.data('birthday'))
+        modal.find('#addressUpdate').val(button.data('address'))
+        modal.find('#admissionUpdate').val(button.data('admission'))
+        modal.find('#idCardUpdate').val(button.data('id_card'))
+        modal.find('#registeredResidenceUpdate').val(button.data('registered_residence'))
+        modal.find('#nationUpdate').val(button.data('nation'))
+        modal.find('#heightUpdate').val(button.data('height'))
+        modal.find('#weightUpdate').val(button.data('weight'))
+        modal.find('#phoneUpdate').val(button.data('phone'))
+        modal.find('#onlyOneChildUpdate').val(button.data('only_one_child'))
+        modal.find('#remarksUpdate').val(button.data('remarks'))
+      });
+
+      // 修改提交表单
+      $('#submitButtonUpdate').on('click',function () {
+        console.log("修改提交点击了")
+        var id = $('#idUpdate').val();
+        var classes = $('#classesUpdate').val();
+        var name = $('#nameUpdate').val();
+        var sex= $('#sexUpdate').val();
+        var age= $('#ageUpdate').val();
+        var birthday= $('#birthdayUpdate').val();
+        var address= $('#addressUpdate').val();
+        var admission= $('#admissionUpdate').val();
+        var idCard= $('#idCardUpdate').val();
+        var registeredResidence= $('#registeredResidenceUpdate').val();
+        var nation= $('#nationUpdate').val();
+        var height= $('#heightUpdate').val();
+        var weight= $('#weightUpdate').val();
+        var phone= $('#phoneUpdate').val();
+        var onlyOneChild= $('#onlyOneChildUpdate').val();
+        var remarks= $('#remarksUpdate').val();
+        if (classes == '' || classes == null || classes == '请选择班级') {
+          $('#alertUpdate').html('警告，【班级】不能为空！');
+          $('#alertUpdate').show();
+          return false;
+        } else if (name == '' || name == null) {
+          $('#alertUpdate').html('警告，【姓名】不能为空！');
+          $('#alertUpdate').show();
+          return false;
+        }else if (sex == '' || sex == null) {
+          $('#alertUpdate').html('警告，【性别】不能为空！');
+          $('#alertUpdate').show();
+          return false;
+        }else if (age == '' || age == null) {
+          $('#alertUpdate').html('警告，【年龄】不能为空！');
+          $('#alertUpdate').show();
+          return false;
+        }else if (birthday == '' || birthday == null) {
+          $('#alertUpdate').html('警告，【出生日期】不能为空！');
+          $('#alertUpdate').show();
+          return false;
+        }else if (address == '' || address == null) {
+          $('#alertUpdate').html('警告，【家庭现详细住址】不能为空！');
+          $('#alertUpdate').show();
+          return false;
+        } else if (idCard == '' || idCard == null) {
+          $('#alertUpdate').html('警告，【身份证号】不能为空！');
+          $('#alertUpdate').show();
+          return false;
+        } else if (phone == '' || phone == null) {
+          $('#alertUpdate').html('警告，【亲属联系电话】不能为空！');
+          $('#alertUpdate').show();
+          return false;
+        } else {
+          $('#alertUpdate').hide();
+        }
+        $.post(
+                "/admin/updateChildInfo",
+                {
+                  id:id,
+                  classes:classes,
+                  name:name,
+                  sex:sex,
+                  age:age,
+                  birthday:birthday,
+                  address:address,
+                  admission:admission,
+                  idCard:idCard,
+                  registeredResidence:registeredResidence,
+                  nation:nation,
+                  height:height,
+                  weight:weight,
+                  phone:phone,
+                  onlyOneChild:onlyOneChild,
+                  remarks:remarks,
+                  type: 'update'
+                },
+                function(data){
+                  console.log("成功返回了"+ JSON.stringify(data))
+                  if(data.statusCode == 200){
+                    $('#successUpdate').html('成功，修改成功，【'+ data.data +'】！');
+                    $('#successUpdate').show();
+
+                    window.location.href="/admin/childInfo";
+                  }else{
+                    $('#alertUpdate').html('警告，修改失败，【'+ data.data +'】！');
+                    $('#alertUpdate').show();
+                  }
+                });
+      });
+
+      // 展示删除的modal并且赋值
+      $('#delete-modal-form').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var childId = button.data('id')
+        var classes = button.data('classes')
+        var name = button.data('name')
+        var modal = $(this)
+        modal.find('#childIdDelete').val(childId)
+        modal.find('#classesDelete').val(classes)
+        modal.find('#nameDelete').val(name)
+      });
+
+      // 删除提交表单
+      $('#submitButtonDelete').on('click',function () {
+        console.log('删除被点击了');
+        var childId = $('#childIdDelete').val();
+        var name = $('#nameDelete').val();
+        $.post(
+                "/admin/deleteChildInfo",
+                {
+                  childId:childId,
+                  name:name,
+                  type: 'delete'
+                },
+                function(data){
+                  console.log("成功返回了"+ JSON.stringify(data))
+                  if(data.statusCode == 200){
+                    $('#successDelete').html('成功，删除成功，【'+ data.data +'】！');
+                    $('#successDelete').show();
+
+                    window.location.href="/admin/childInfo";
+                  }else{
+                    $('#alertDelete').html('警告，删除失败，【'+ data.data +'】！');
+                    $('#alertDelete').show();
+                  }
+                });
+      });
+      // 添加功能点击alert退出
+      $('#alert').click(function () {
+        $("#alert").hide()
+      })
+      // 添加功能点击关闭按钮alert退出
+      $('#closeButton').click(function () {
+        $('#addForm')[0].reset();
+        $("#alert").hide()
+      })
+      // 修改功能点击alert退出
+      $('#alertUpdate').click(function () {
+        $("#alertUpdate").hide()
+      })
+      // 修改功能点击关闭按钮alert退出
+      $('#closeButtonUpdate').click(function () {
+        $('#updateForm')[0].reset();
+        $("#alertUpdate").hide()
+      })
+      // 删除功能点击alert退出
+      $('#alertDelete').click(function () {
+        $("#alertDelete").hide()
+      })
+      // 删除功能点击关闭按钮alert退出
+      $('#closeButtonDelete').click(function () {
+        $("#alertDelete").hide()
+      })
+    });
+
+  </script>
+</body>
+</html>

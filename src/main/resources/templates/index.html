@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+  <meta name="author" content="Creative Tim">
+  <title>优捷信达---预警项目管理系统</title>
+  <!-- Favicon -->
+  <link th:href="@{/img/brand/favicon.png}" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link th:href="@{/vendor/nucleo/css/nucleo.css}" rel="stylesheet">
+  <link th:href="@{/vendor/@fortawesome/fontawesome-free/css/all.min.css}" rel="stylesheet">
+  <!-- Argon CSS -->
+  <link type="text/css" th:href="@{/css/argon.css?v=1.0.0}" rel="stylesheet">
+</head>
+
+<body>
+<!-- Sidenav -->
+<nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <div class="container-fluid">
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Brand -->
+    <a class="navbar-brand pt-0" href="../index.html">
+      <img th:src="@{/img/brand/blue.png}" class="navbar-brand-img" alt="...">
+    </a>
+
+    <!--手机端header-->
+    <div th:replace="headerByMobilePhone::headerByMobilePhone"></div>
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+      <!-- Collapse header -->
+      <div class="navbar-collapse-header d-md-none">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a href="../index.html">
+              <img th:src="@{/img/brand/blue.png}">
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Navigation -->
+      <div th:replace="navbar::navbar"></div>
+    </div>
+  </div>
+</nav>
+<!-- Main content -->
+<div class="main-content">
+  <!-- Top navbar -->
+  <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+    <div class="container-fluid">
+      <!-- Brand -->
+      <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">用户主页</a>
+      <!--header-->
+      <div th:replace="header::header"></div>
+    </div>
+  </nav>
+  <!-- Header -->
+  <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" id="head-img" style="min-height: 600px; background-size: cover; background-image: url('/img/theme/profile-cover.jpg'); background-position: center top;">
+    <!-- Mask -->
+    <span class="mask bg-gradient-default opacity-8"></span>
+    <!-- Header container -->
+    <div class="container-fluid d-flex align-items-center">
+      <div class="row">
+        <div class="col-lg-7 col-md-10">
+          <h1 class="display-2 text-white">
+            <h1 class="display-2 text-white" th:text="${'你好，'+ session.username}">你好，</h1>
+          </h1>
+          <p class="text-white mt-0 mb-5">
+            无论是在平淡的日子里，还是在迷茫低落的时候，都要尽量靠近阳光，喜欢在阳光下眺望，只为寻一抹亮色，只要有阳光在，希望就在。
+          </p>
+          <!--<a href="#!" class="btn btn-info">编辑</a>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+        <div class="card card-profile shadow">
+          <div class="row justify-content-center">
+            <div class="col-lg-3 order-lg-2">
+              <div class="card-profile-image">
+                <a href="#">
+                  <img th:src="@{/img/theme/team-4-800x800.jpg}" class="rounded-circle">
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+            <div class="d-flex justify-content-between">
+              <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
+              <a href="#" class="btn btn-sm btn-default float-right">Message</a>
+            </div>
+          </div>
+          <div class="card-body pt-0 pt-md-4">
+            <div class="row">
+              <div class="col">
+                <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                  <div>
+                    <span class="heading">22</span>
+                    <span class="description">Friends</span>
+                  </div>
+                  <div>
+                    <span class="heading">10</span>
+                    <span class="description">Photos</span>
+                  </div>
+                  <div>
+                    <span class="heading">89</span>
+                    <span class="description">Comments</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <h3>
+                Jessica Jones<span class="font-weight-light">, 27</span>
+              </h3>
+              <div class="h5 font-weight-300">
+                <i class="ni location_pin mr-2"></i>Bucharest, Romania
+              </div>
+              <div class="h5 mt-4">
+                <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+              </div>
+              <div>
+                <i class="ni education_hat mr-2"></i>University of Computer Science
+              </div>
+              <hr class="my-4" />
+              <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
+              <a href="#">Show more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8 order-xl-1">
+        <div class="card bg-secondary shadow">
+          <div class="card-header bg-white border-0">
+            <div class="row align-items-center">
+              <div class="col-8">
+                <h3 class="mb-0">我的账号</h3>
+              </div>
+              <div class="col-4 text-right">
+                <a href="#!" class="btn btn-sm btn-primary">编辑</a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <form>
+              <h6 class="heading-small text-muted mb-4">用户信息</h6>
+              <div class="pl-lg-4">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-username">用户名</label>
+                      <span type="text" id="input-username" class="form-control form-control-alternative" th:text="${session.username}">
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-password">密码</label>
+                      <span type="text" id="input-password" class="form-control form-control-alternative" th:text="${session.password}">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-first-name">登录地点</label>
+                      <span type="text" id="input-first-name" class="form-control form-control-alternative"  th:text="${session.address}">
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-last-name">登录时间</label>
+                      <span type="text" id="input-last-name" class="form-control form-control-alternative" th:text="${#temporals.format(session.loginTime, 'yyyy-MM-dd HH:mm:ss')}">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--<hr class="my-4" />-->
+              <!--&lt;!&ndash; Description &ndash;&gt;-->
+              <!--<h6 class="heading-small text-muted mb-4">关于我</h6>-->
+              <!--<div class="pl-lg-4">-->
+                <!--<div class="form-group">-->
+                  <!--<label>关于我</label>-->
+                  <!--<textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>-->
+                <!--</div>-->
+              <!--</div>-->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--footer-->
+    <div th:replace="footer::footer"></div>
+  </div>
+</div>
+<!-- Argon Scripts -->
+<!-- Core -->
+<script th:src="@{/vendor/jquery/dist/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<!-- Argon JS -->
+<script th:src="@{/js/argon.js?v=1.0.0}"></script>
+<script>
+
+</script>
+<script type="text/javascript">
+  $(function(){
+    $('#logOut').on('click',function () {
+      console.log('退出登录被点击了');
+      $.post(
+            "/alert/admin/logOut",
+            function(data){
+              console.log(data)
+              if(data.statusCode == 200){
+                window.location.href="/alert/admin/login";
+              }
+            });
+    })
+  })
+</script>
+</body>
+
+</html>
