@@ -13,7 +13,7 @@ spring:
     password: ljw00000000
     host: smtp.163.com
   application:
-    name: Alert
+    name: childManagement
   boot:
     admin:
       client:
