@@ -7,7 +7,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://123.207.173.185:5432/child-archives-management?useSSL=false
     username: postgres
-    password: ljwpostgres org.postgresql.Driver
+    password: ljwpostgres
   mail:
     username: 17600604700@163.com
     password: ljw00000000
