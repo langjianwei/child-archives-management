@@ -1,8 +1,11 @@
 package com.ljw.management.mapper;
 
+import com.ljw.management.entity.BirthdayAlert;
 import com.ljw.management.entity.Child;
 import com.ljw.management.entity.Classes;
+import com.ljw.management.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -51,5 +54,49 @@ public interface AdminMapper {
      */
     void deleteChild(Integer childId);
 
-    List<Classes> getClassesList();
+    /**
+     * @Author: 郎建伟
+     * @Description: 查询用户列表
+     * @Date: Created in 2019/8/19 17:22
+     * @param: [child]
+     * @return: java.util.List<com.ljw.management.entity.User>
+     */
+    List<User> getUserList(User user);
+
+    /**
+     * @Author: 郎建伟
+     * @Description: 添加用户
+     * @Date: Created in 2019/8/20 17:22
+     * @param: [child]
+     * @return: java.util.List<com.ljw.management.entity.User>
+     */
+    void addUser(User user);
+
+    /**
+     * @Author: 郎建伟
+     * @Description: 修改用户
+     * @Date: Created in 2019/8/20 17:22
+     * @param: [child]
+     * @return: java.util.List<com.ljw.management.entity.User>
+     */
+    void updateUser(User user);
+    /**
+     * @Author: 郎建伟
+     * @Description: 删除用户
+     * @Date: Created in 2019/8/21 21:22
+     * @param: [childId]
+     * @return: java.util.List<com.ljw.management.entity.User>
+     */
+    void deleteUser(Integer id);
+
+    List<Classes> getClassesList(Classes classes);
+
+    void addClasses(Classes classes);
+
+    void updateClasses(Classes classes);
+
+    void deleteClasses(Integer id);
+
+    List<BirthdayAlert> getBirthdayAlertList(@Param("classes") Object classes);
+
 }

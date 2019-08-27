@@ -19,9 +19,16 @@ public class SMSUtil {
     private final static int appId = 1400243138;
     private final static String appKey = "8440bf7f6f84e4090ef8c7509c320f2f";
     private final static String smsSign = "郎建伟的学习笔记";
-    private final static int templateId = 402713;
+    private final static int templateId = 403698;
 
-    public static SmsSingleSenderResult sendWithTemplate(String phone, String[] params) {
+    /**
+     * @Author: 郎建伟
+     * @Description: 指定模板 ID 单发短信
+     * @Date: Created in 2019/8/24 14:38
+     * @param: [phone, params]
+     * @return: com.github.qcloudsms.SmsSingleSenderResult
+     */
+    public static SmsSingleSenderResult sendSingleWithTemplate(String phone, String[] params) {
         SmsSingleSender sender = new SmsSingleSender(appId, appKey);
         try {
             SmsSingleSenderResult result = sender
@@ -38,7 +45,7 @@ public class SMSUtil {
     }
 
     public static void main(String[] args) {
-        SMSUtil.sendWithTemplate("17600604700", new String[]{"郎建伟"});
+        SMSUtil.sendSingleWithTemplate("17600604700", new String[]{"郎建伟","青青"});
     }
 
 }

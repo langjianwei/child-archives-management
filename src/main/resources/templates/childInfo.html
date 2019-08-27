@@ -118,7 +118,7 @@
                                 <div class="form-group">
                                   <label>班级：</label>
                                   <div class="input-child input-child-alternative">
-                                    <select class="form-control" v-model="classes" name="classes" id="classes" style="height:45px; border:none">
+                                    <select class="form-control" v-model="classes" name="classes" id="classes" style="height:45px;">
                                       <option value="请选择班级" style="padding: 0 20px">下拉选择班级</option>
                                       <option th:each="classes:${classesList}" th:value="${classes.name}" th:text="${classes.name}" style="padding: 0 20px"></option>
                                     </select>
@@ -139,7 +139,7 @@
                                 <div class="form-group">
                                   <label>性别：</label>
                                   <div class="input-child input-child-alternative">
-                                    <select class="form-control" v-model="sex" name="sex" id="sex" style="height:45px; border:none">
+                                    <select class="form-control" v-model="sex" name="sex" id="sex" style="height:45px; ">
                                       <option value="请选择性别" style="padding: 0 20px">下拉选择性别</option>
                                       <option value="男" style="padding: 0 20px">男</option>
                                       <option value="女" style="padding: 0 20px">女</option>
@@ -604,33 +604,6 @@
                 </tbody>
               </table>
             </div>
-            <!--<div class="card-footer py-4">-->
-              <!--<nav aria-label="...">-->
-                <!--<ul class="pagination justify-content-end mb-0">-->
-                  <!--<li class="page-item disabled">-->
-                    <!--<a class="page-link" href="#" tabindex="-1">-->
-                      <!--<i class="fas fa-angle-left"></i>-->
-                      <!--<span class="sr-only">Previous</span>-->
-                    <!--</a>-->
-                  <!--</li>-->
-                  <!--<li class="page-item active">-->
-                    <!--<a class="page-link" href="#">1</a>-->
-                  <!--</li>-->
-                  <!--<li class="page-item">-->
-                    <!--<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>-->
-                  <!--</li>-->
-                  <!--<li class="page-item">-->
-                    <!--<a class="page-link" href="#">3</a>-->
-                  <!--</li>-->
-                  <!--<li class="page-item">-->
-                    <!--<a class="page-link" href="#">-->
-                      <!--<i class="fas fa-angle-right"></i>-->
-                      <!--<span class="sr-only">Next</span>-->
-                    <!--</a>-->
-                  <!--</li>-->
-                <!--</ul>-->
-              <!--</nav>-->
-            <!--</div>-->
           </div>
         </div>
       </div>
@@ -665,7 +638,7 @@
         "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
         "aLengthMenu" : [5, 10], //更改显示记录数选项
         "sPaginationType" : "full_numbers", //详细分页组，可以支持直接跳转到某页
-        "bAutoWidth" : true, //是否自适应宽度
+        "bAutoWidth" : false, //是否自适应宽度
         // "bJQueryUI" : true,
         "oLanguage": { //国际化配置
           "sProcessing" : "正在获取数据，请稍后...",
@@ -687,6 +660,16 @@
       });
     });
 
+    $(document).ready(function () {
+      var username = $('#usernameNav').text();
+      console.log(username)
+      if (username != null) {
+        if (username == 'admin') {
+          $('#classesManage').css('display','block');
+          $('#userManage').css('display','block');
+        }
+      }
+    })
     $(function(){
       // 退出登录
       $(function(){
@@ -780,7 +763,7 @@
                     $('#success').html('成功，添加成功，【'+ data.data +'】！');
                     $('#success').show();
                     setTimeout(function () { $("#add-modal-form").modal("hide") }, 2000);
-                    window.location.href="/admin/childInfo";
+                    window.location.href="/admin/getChildInfo";
                   }else{
                     $('#alert').html('警告，添加失败，【'+ data.data +'】！');
                     $('#alert').show();
@@ -891,7 +874,7 @@
                     $('#successUpdate').html('成功，修改成功，【'+ data.data +'】！');
                     $('#successUpdate').show();
 
-                    window.location.href="/admin/childInfo";
+                    window.location.href="/admin/getChildInfo";
                   }else{
                     $('#alertUpdate').html('警告，修改失败，【'+ data.data +'】！');
                     $('#alertUpdate').show();
@@ -929,7 +912,7 @@
                     $('#successDelete').html('成功，删除成功，【'+ data.data +'】！');
                     $('#successDelete').show();
 
-                    window.location.href="/admin/childInfo";
+                    window.location.href="/admin/getChildInfo";
                   }else{
                     $('#alertDelete').html('警告，删除失败，【'+ data.data +'】！');
                     $('#alertDelete').show();

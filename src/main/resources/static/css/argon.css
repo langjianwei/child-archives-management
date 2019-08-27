@@ -18233,7 +18233,7 @@ textarea[resize='horizontal']
 
 .focused .form-control
 {
-    border-color: rgba(50, 151, 211, .25);
+    /*border-color: rgba(50, 151, 211, .25);*/
 }
 
 .header
@@ -18474,7 +18474,7 @@ textarea[resize='horizontal']
 
 .focused .form-control
 {
-    border-color: rgba(50, 151, 211, .25);
+    /*border-color: rgba(50, 151, 211, .25);*/
 }
 
 .list-group-space .list-group-item

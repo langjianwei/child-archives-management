@@ -94,7 +94,7 @@
           <div class="card shadow">
             <div class="card-header border-0">
               <span class="mb-0">生日提醒查看</span>
-              <button class="btn btn-sm btn-success" style="position: absolute; right: 20px" data-toggle="modal" data-target="#add-modal-form" id="addButton">添加</button>
+              <!--<button class="btn btn-sm btn-success" style="position: absolute; right: 20px" data-toggle="modal" data-target="#add-modal-form" id="addButton">添加</button>-->
 
               <!--添加功能的modal开始-->
               <div class="modal fade" id="add-modal-form" tabindex="-1" role="dialog" aria-labelledby="add-modal-form" aria-hidden="true">
@@ -342,89 +342,70 @@
               </div>
               <!--删除功能的modal结束-->
             </div>
-            <div class="table-responsive">
-              <table class="table align-items-center table-flush text-center" style="table-layout:fixed">
+            <div class="table-responsive py-4">
+              <table class="table align-items-center table-flush text-center" id="birthdayList">
                 <thead class="thead-light">
                 <tr>
-                  <th scope="col" style="display: none">id</th>
                   <th scope="col">姓名</th>
                   <th scope="col">班级</th>
                   <th scope="col">生日</th>
-                  <th scope="col">被提醒人</th>
-                  <th scope="col">被提醒人电话</th>
-                  <th scope="col">被提醒人邮箱</th>
-                  <th scope="col">操作</th>
+                  <th scope="col">老师</th>
+                  <th scope="col">老师电话</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="mail:${mailConfigList}">
-                  <th scope="row" style="display: none">
-                    <div>
-                      <span th:text="${mail.id}"></span>
-                    </div>
-                  </th>
-                  <th scope="row">
-                    <div>
+                <tr th:each="birthdayAlert:${birthdayAlertList}">
+                  <td scope="row">
                       <div>
-                        <span th:text="${mail.group_id}"></span>
+                        <span th:text="${birthdayAlert.name}"></span>
                       </div>
-                    </div>
-                  </th>
-                  <td th:text="${mail.product_ids}">
                   </td>
-                  <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" data-toggle="tooltip" data-placement="right" th:attr="title=${mail.email}">
+                  <td th:text="${birthdayAlert.classes}">
+                  </td>
+                  <td>
                       <span>
-                        <span th:text="${mail.email}"></span>
+                        <span th:text="${birthdayAlert.birthday}"></span>
                       </span>
                   </td>
                   <td>
                     <div>
-                      <span th:text="${mail.send_time}"></span>
+                      <span th:text="${birthdayAlert.teacher}"></span>
                     </div>
-                  </td>
-                  <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" data-toggle="tooltip" data-placement="right" th:attr="title=${mail.store}">
-                    <span>
-                      <span th:text="${mail.store}"></span>
-                    </span>
                   </td>
                   <td>
                     <span>
-                      <span th:text="${mail.email_type}"></span>
+                      <span th:text="${birthdayAlert.teacherPhone}"></span>
                     </span>
-                  </td>
-                  <td class="text-center">
-                    <button class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#update-modal-form" id="updateButton" th:attr="data-groupId=${mail.group_id}, data-emailType=${mail.email_type}, data-store=${mail.store}, data-productIds=${mail.product_ids}, data-email=${mail.email}, data-alertTime=${mail.send_time}">修改</button>
-                    <button class="btn btn-sm btn-danger"  data-toggle="modal" data-target="#delete-modal-form" id="deleteButton" th:attr="data-groupId=${mail.group_id}, data-id=${mail.id}">删除</button>
                   </td>
                 </tr>
                 </tbody>
               </table>
             </div>
-            <div class="card-footer py-4">
-              <nav aria-label="...">
-                <ul class="pagination justify-content-end mb-0">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">
-                      <i class="fas fa-angle-left"></i>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">
-                      <i class="fas fa-angle-right"></i>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
+            <!--<div class="card-footer py-4">-->
+              <!--<nav aria-label="...">-->
+                <!--<ul class="pagination justify-content-end mb-0">-->
+                  <!--<li class="page-item disabled">-->
+                    <!--<a class="page-link" href="#" tabindex="-1">-->
+                      <!--<i class="fas fa-angle-left"></i>-->
+                      <!--<span class="sr-only">Previous</span>-->
+                    <!--</a>-->
+                  <!--</li>-->
+                  <!--<li class="page-item active">-->
+                    <!--<a class="page-link" href="#">1</a>-->
+                  <!--</li>-->
+                  <!--<li class="page-item">-->
+                    <!--<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>-->
+                  <!--</li>-->
+                  <!--<li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                  <!--<li class="page-item">-->
+                    <!--<a class="page-link" href="#">-->
+                      <!--<i class="fas fa-angle-right"></i>-->
+                      <!--<span class="sr-only">Next</span>-->
+                    <!--</a>-->
+                  <!--</li>-->
+                <!--</ul>-->
+              <!--</nav>-->
+            <!--</div>-->
           </div>
         </div>
       </div>
@@ -440,18 +421,67 @@
   <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3PjUqq81lIOfBPYXrQGWwK5T4ystZjA"></script>-->
   <!-- Argon JS -->
   <script th:src="@{/js/argon.js?v=1.0.0}"></script>
+  <!-- dataTable -->
+  <link type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}" rel="stylesheet">
+  <link type="text/css" th:href="@{/css/buttons.bootstrap4.min.css}" rel="stylesheet">
+  <link type="text/css" th:href="@{/css/select.bootstrap4.min.css}" rel="stylesheet">
+  <script th:src="@{/js/jquery.dataTables.min.js}"></script>
+  <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+  <script th:src="@{/js/dataTables.buttons.min.js}"></script>
+  <script th:src="@{/js/buttons.bootstrap4.min.js}"></script>
+  <script th:src="@{/js/buttons.html5.min.js}"></script>
+  <script th:src="@{/js/buttons.flash.min.js}"></script>
+  <script th:src="@{/js/buttons.print.min.js}"></script>
+  <script th:src="@{/js/dataTables.select.min.js}"></script>
   <script type="text/javascript">
-    // 退出登录
+    $(document).ready(function(){
+      $("#birthdayList").dataTable({
+        "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
+        "aLengthMenu" : [5, 10], //更改显示记录数选项
+        "sPaginationType" : "full_numbers", //详细分页组，可以支持直接跳转到某页
+        "bAutoWidth" : false, //是否自适应宽度
+        // "bJQueryUI" : true,
+        "oLanguage": { //国际化配置
+          "sProcessing" : "正在获取数据，请稍后...",
+          "sLengthMenu" : "显示 _MENU_ 条",
+          "sZeroRecords" : "没有您要搜索的内容",
+          "sInfo" : "从 _START_ 到  _END_ 条记录 总记录数为 _TOTAL_ 条",
+          "sInfoEmpty" : "记录数为0",
+          "sInfoFiltered" : "(全部记录数 _MAX_ 条)",
+          "sInfoPostFix" : "",
+          "sSearch" : "搜索",
+          "sUrl" : "",
+          "oPaginate": {
+            "sFirst" : "<<",
+            "sPrevious" : "<",
+            "sNext" : ">",
+            "sLast" : ">>"
+          }
+        },
+      });
+    });
+
+    $(document).ready(function () {
+      var username = $('#usernameNav').text();
+      console.log(username)
+      if (username != null) {
+        if (username == 'admin') {
+          document.getElementById('classesManage').style.display = "block";
+          document.getElementById('userManage').style.display = "block";
+        }
+      }
+    })
     $(function(){
+      // 退出登录
       $(function(){
         $('#logOut').on('click',function () {
           console.log('退出登录被点击了');
           $.post(
-                  "/alert/admin/logOut",
+                  "/admin/logOut",
                   function(data){
                     console.log(data)
                     if(data.statusCode == 200){
-                      window.location.href="/alert/admin/login";
+                      window.location.href="/admin/login";
                     }
                   });
         })

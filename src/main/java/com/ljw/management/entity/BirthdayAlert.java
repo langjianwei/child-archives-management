@@ -6,20 +6,22 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
- * @version ：1.0.0
+ * @ClassName BirthdayAlert
+ * @Description: 生日提醒
  * @Author: 郎建伟
- * @Modified By:
- * @Description:
- * @Date: Created in 2019/8/20 16:08
+ * @Date: Created in 2019/8/24 1:57
+ * @Version: 1.0.0
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class Classes {
+public class BirthdayAlert {
 
-    private Integer id;
     private String name;
+    private String classes;
+    private String birthday;
     private String teacher;
     private String teacherPhone;
+
 }
