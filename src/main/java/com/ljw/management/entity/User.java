@@ -4,22 +4,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @version ：1.0.0
- * @Author: 郎建伟
- * @Modified By:
+ * @ClassName User
  * @Description:
- * @Date: Created in 2019/8/20 16:08
+ * @Author: 郎建伟
+ * @Date: Created in 2019/8/24 23:39
+ * @Version: 1.0.0
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class Classes {
+public class User {
 
     private Integer id;
-    private String name;
-    private String teacher;
-    private String teacherPhone;
+    private String username;
+    private String password;
+    private String classes;
+
 }

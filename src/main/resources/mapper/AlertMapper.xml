@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljw.management.mapper.AlertMapper">
+    <insert id="addBirthdayAlert" parameterType="com.ljw.management.entity.BirthdayAlert">
+        insert into
+          birthday_alert (name, classes, birthday, teacher, teacher_phone)
+        values (#{name}, #{classes}, #{birthday}, #{teacher}, #{teacherPhone})
+
+    </insert>
+
+    <select id="getBirthdayAlertList" parameterType="String" resultType="com.ljw.management.entity.BirthdayAlert">
+        SELECT
+        ch.NAME,
+        ch.classes,
+        cl.teacher,
+        cl.teacher_phone
+        FROM
+        child ch,
+        classes cl
+        WHERE
+        1 = 1
+        AND ch.classes = cl.NAME
+      <if test="birthday != null">
+          and ch.birthday = #{birthday}
+      </if>
+    </select>
+
+</mapper>

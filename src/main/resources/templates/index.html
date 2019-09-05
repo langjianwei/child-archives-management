@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>优捷信达---预警项目管理系统</title>
+  <title>陵川希望礼仪幼儿园---幼儿档案管理系统</title>
   <!-- Favicon -->
   <link th:href="@{/img/brand/favicon.png}" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -62,7 +62,7 @@
   <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
     <div class="container-fluid">
       <!-- Brand -->
-      <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">用户主页</a>
+      <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">个人主页</a>
       <!--header-->
       <div th:replace="header::header"></div>
     </div>
@@ -171,8 +171,8 @@
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <label class="form-control-label" for="input-password">密码</label>
-                      <span type="text" id="input-password" class="form-control form-control-alternative" th:text="${session.password}">
+                      <label class="form-control-label" for="input-password">所属班级权限</label>
+                      <span type="text" id="input-password" class="form-control form-control-alternative" th:text="${session.classes}">
                       </span>
                     </div>
                   </div>
@@ -228,14 +228,25 @@
     $('#logOut').on('click',function () {
       console.log('退出登录被点击了');
       $.post(
-            "/alert/admin/logOut",
+            "/admin/logOut",
             function(data){
               console.log(data)
               if(data.statusCode == 200){
-                window.location.href="/alert/admin/login";
+                window.location.href="/admin/login";
               }
             });
     })
+  })
+
+  $(document).ready(function () {
+    var username = $('#usernameNav').text();
+    console.log(username)
+    if (username != null) {
+      if (username == 'admin') {
+        document.getElementById('classesManage').style.display = "block";
+        document.getElementById('userManage').style.display = "block";
+      }
+    }
   })
 </script>
 </body>

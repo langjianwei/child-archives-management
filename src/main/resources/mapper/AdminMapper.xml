@@ -7,6 +7,7 @@
         values (#{classes}, #{name}, #{sex}, #{age}, #{birthday}, #{idCard}, #{registeredResidence}, #{height}, #{weight}, #{nation}, #{address}, #{phone}, #{admission}, #{onlyOneChild}, #{remarks}, now(), now())
 
     </insert>
+
     <update id="updateChild" parameterType="com.ljw.management.entity.Child">
         update
           child
@@ -30,6 +31,7 @@
         where
           id = #{id}
     </update>
+
     <delete id="deleteChild" parameterType="integer">
         delete from child where id = #{childId}
     </delete>
@@ -54,7 +56,75 @@
       </if>
     </select>
 
-    <select id="getClassesList" resultType="com.ljw.management.entity.Classes">
+    <select id="getClassesList" parameterType="com.ljw.management.entity.Classes" resultType="com.ljw.management.entity.Classes">
         select * from classes
+        where 1=1
+        <if test="name != null">
+            and name = #{name}
+        </if>
     </select>
+
+    <select id="getBirthdayAlertList" parameterType="object" resultType="com.ljw.management.entity.BirthdayAlert">
+        select * from birthday_alert
+        where 1 = 1
+        <if test="classes != null">
+        and classes = #{classes}
+        </if>
+    </select>
+
+    <select id="getUserList" parameterType="com.ljw.management.entity.User" resultType="com.ljw.management.entity.User">
+        select * from
+          userinfo
+        where 1=1
+        <if test="username != null">
+            and username = #{username}
+        </if>
+        <if test="password != null">
+            and password = #{password}
+        </if>
+    </select>
+
+    <insert id="addUser" parameterType="com.ljw.management.entity.User">
+        insert into
+          userinfo (username, password, classes, add_time, update_time)
+        values (#{username}, #{password}, #{classes}, now(), now())
+
+    </insert>
+
+    <update id="updateUser" parameterType="com.ljw.management.entity.User">
+        update
+          userinfo
+        set
+          username = #{username},
+          password = #{password},
+          classes = #{classes},
+          update_time = now()
+        where
+          id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="integer">
+        delete from userinfo where id = #{id}
+    </delete>
+
+    <insert id="addClasses" parameterType="com.ljw.management.entity.Classes">
+        insert into
+          classes (name, teacher, teacher_phone)
+        values (#{name}, #{teacher}, #{teacherPhone})
+    </insert>
+
+    <update id="updateClasses" parameterType="com.ljw.management.entity.Classes">
+        update
+          classes
+        set
+          name = #{name},
+          teacher = #{teacher},
+          teacher_phone = #{teacherPhone}
+        where
+          id = #{id}
+    </update>
+
+    <delete id="deleteClasses" parameterType="integer">
+        delete from classes where id = #{id}
+    </delete>
 </mapper>
