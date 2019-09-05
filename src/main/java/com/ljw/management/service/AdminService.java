@@ -3,6 +3,7 @@ package com.ljw.management.service;
 import com.ljw.management.entity.*;
 import com.ljw.management.mapper.AdminMapper;
 import com.ljw.management.utils.IPUtil;
+import com.ljw.management.utils.MD5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,7 +45,7 @@ public class AdminService {
 
         String requestIp = IPUtil.getRealIp(httpRequest);
         User user = new User();
-        user.setUsername(username).setPassword(password);
+        user.setUsername(username).setPassword(MD5Util.md5(password));
         List<User> userList = adminMapper.getUserList(user);
         if (userList.size() > 0) {
             session = httpRequest.getSession();
@@ -207,6 +207,7 @@ public class AdminService {
             return new JsonResult(500, type + "失败","该用户已存在,请修改用户名");
         }
         try {
+            user.setPassword(MD5Util.md5(user.getPassword()));
             adminMapper.addUser(user);
         } catch (Exception e) {
             logger.error("用户信息" + type + "失败：{}", e.getMessage());
@@ -249,6 +250,7 @@ public class AdminService {
      */
     public JsonResult updateUser(User user, String type) {
         try {
+            user.setPassword(MD5Util.md5(user.getPassword()));
             adminMapper.updateUser(user);
         } catch (Exception e) {
             logger.error("用户信息" + type + "失败：{}", e.getMessage());
