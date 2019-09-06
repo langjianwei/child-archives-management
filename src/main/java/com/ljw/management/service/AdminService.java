@@ -34,6 +34,18 @@ public class AdminService {
 
     /**
      * @Author: 郎建伟
+     * @Description: 默认页面，已登录返回用户个人主页
+     * @Date: Created in 2019/9/6 15:08
+     * @param: []
+     * @return: java.lang.String
+     */
+    public String defaultPage() {
+        logger.info("用户已登录，返回用户主页...");
+        return "index";
+    }
+
+    /**
+     * @Author: 郎建伟
      * @Description: 登录验证
      * @Date: Created in 2019/8/24 21:45
      * @param: [httpRequest, username, password]

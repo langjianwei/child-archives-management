@@ -33,12 +33,15 @@ public class LoginInterceptor implements HandlerInterceptor {
                              Object handler) throws Exception {
 
         logger.info("用户请求的路径为：{}", request.getRequestURI());
+
         if (null == request.getSession().getAttribute("username")) {
             logger.info("用户未登录或登录过期，请重新登录...");
             response.sendRedirect("/admin/login");
             return false;
         }
+
         return true;
+
     }
 
     @Override

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date: Created in 2019/8/16 13:46
  */
 @Controller
-@RequestMapping("admin")
+//@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
@@ -39,6 +39,18 @@ public class AdminController {
         return "hello,郎建伟！";
     }
 
+    /**
+     * @Author: 郎建伟
+     * @Description: 默认页面控制
+     * @Date: Created in 2019/9/6 10:05
+     * @param: []
+     * @return: java.lang.String
+     */
+    @RequestMapping("/")
+    public String defaultPage() {
+
+        return adminService.defaultPage();
+    }
 
     /**
      * @Author: 郎建伟
@@ -47,7 +59,7 @@ public class AdminController {
      * @param: []
      * @return: java.lang.String
      */
-    @RequestMapping("/login")
+    @RequestMapping("/admin/login")
     public String login() {
         return "login";
     }
@@ -59,7 +71,7 @@ public class AdminController {
      * @param: []
      * @return: java.lang.String
      */
-    @RequestMapping("/logOut")
+    @RequestMapping("/admin/logOut")
     @ResponseBody
     public JsonResult loginOut() {
         return adminService.logOut();
@@ -72,7 +84,7 @@ public class AdminController {
      * @param: [httpRequest, username, password]
      * @return: com.ljw.management.entity.JsonResult
      */
-    @RequestMapping("/loginValid")
+    @RequestMapping("/admin/loginValid")
     @ResponseBody
     public JsonResult loginValid(HttpServletRequest httpRequest,
                                  String username,
@@ -87,7 +99,7 @@ public class AdminController {
      * @param: []
      * @return: java.lang.String
      */
-    @RequestMapping("/index")
+    @RequestMapping("/admin/index")
     public String index() {
         return "index";
     }
@@ -99,7 +111,7 @@ public class AdminController {
      * @param: []
      * @return: java.lang.String
      */
-    @RequestMapping("/getChildInfo")
+    @RequestMapping("/admin/getChildInfo")
     public String childInfo(ModelMap modelMap, Child child) {
         return adminService.getChildInfo(modelMap, child);
     }
@@ -111,7 +123,7 @@ public class AdminController {
      * @param: [child, type]
      * @return: com.ljw.management.entity.JsonResult
      */
-    @RequestMapping("/addChildInfo")
+    @RequestMapping("/admin/addChildInfo")
     @ResponseBody
     public JsonResult addChildInfo(Child child, String type) {
 
@@ -125,7 +137,7 @@ public class AdminController {
      * @param: [child, type]
      * @return: com.ljw.management.entity.JsonResult
      */
-    @RequestMapping("/updateChildInfo")
+    @RequestMapping("/admin/updateChildInfo")
     @ResponseBody
     public JsonResult updateChildInfo(Child child, String type) {
 
@@ -138,7 +150,7 @@ public class AdminController {
      * @param: [child, type]
      * @return: com.ljw.management.entity.JsonResult
      */
-    @RequestMapping("/deleteChildInfo")
+    @RequestMapping("/admin/deleteChildInfo")
     @ResponseBody
     public JsonResult deleteChildInfo(Integer childId, String name, String type) {
         return adminService.deleteChildInfo(childId, name, type);
@@ -151,7 +163,7 @@ public class AdminController {
      * @param: []
      * @return: java.lang.String
      */
-    @RequestMapping("/getClasses")
+    @RequestMapping("/admin/getClasses")
     public String getClasses(ModelMap modelMap) {
         return adminService.getClasses(modelMap);
     }
@@ -162,7 +174,7 @@ public class AdminController {
      * @param: []
      * @return: java.lang.String
      */
-    @RequestMapping("/getUser")
+    @RequestMapping("/admin/getUser")
     public String getUser(ModelMap modelMap, User user) {
         return adminService.getUser(modelMap, user);
     }
@@ -174,7 +186,7 @@ public class AdminController {
      * @param: [user, type]
      * @return: com.ljw.management.entity.JsonResult
      */
-    @RequestMapping("/addUser")
+    @RequestMapping("/admin/addUser")
     @ResponseBody
     public JsonResult addUser(User user, String type) {
 
@@ -187,7 +199,7 @@ public class AdminController {
      * @param: [classes, type]
      * @return: com.ljw.management.entity.JsonResult
      */
-    @RequestMapping("/addClasses")
+    @RequestMapping("/admin/addClasses")
     @ResponseBody
     public JsonResult addClasses(Classes classes, String type) {
 
@@ -201,7 +213,7 @@ public class AdminController {
      * @param: [user, type]
      * @return: com.ljw.management.entity.JsonResult
      */
-    @RequestMapping("/updateUser")
+    @RequestMapping("/admin/updateUser")
     @ResponseBody
     public JsonResult updateUser(User user, String type) {
 
@@ -214,7 +226,7 @@ public class AdminController {
      * @param: [classes, type]
      * @return: com.ljw.management.entity.JsonResult
      */
-    @RequestMapping("/updateClasses")
+    @RequestMapping("/admin/updateClasses")
     @ResponseBody
     public JsonResult updateClasses(Classes classes, String type) {
 
@@ -227,7 +239,7 @@ public class AdminController {
      * @param: [id, username, type]
      * @return: com.ljw.management.entity.JsonResult
      */
-    @RequestMapping("/deleteUser")
+    @RequestMapping("/admin/deleteUser")
     @ResponseBody
     public JsonResult deleteUser(Integer id, String username, String type) {
         return adminService.deleteUser(id, username, type);
@@ -239,7 +251,7 @@ public class AdminController {
      * @param: [id, username, type]
      * @return: com.ljw.management.entity.JsonResult
      */
-    @RequestMapping("/deleteClasses")
+    @RequestMapping("/admin/deleteClasses")
     @ResponseBody
     public JsonResult deleteClasses(Integer id, String username, String type) {
         return adminService.deleteClasses(id, username, type);
@@ -252,20 +264,20 @@ public class AdminController {
      * @param: []
      * @return: java.lang.String
      */
-    @RequestMapping("/getBirthdayAlert")
+    @RequestMapping("/admin/getBirthdayAlert")
     public String birthdayAlert(ModelMap modelMap) {
         return adminService.getBirthdayAlert(modelMap);
     }
 
 
     // 打开500
-    @RequestMapping("/500")
+    @RequestMapping("/admin/500")
     public String error500() {
         return "500";
     }
 
     // 打开404
-    @RequestMapping("/404")
+    @RequestMapping("/admin/404")
     public String error404() {
         return "404";
     }
